@@ -1,0 +1,92 @@
+---
+title: "Load data easily and efficiently with lissyuse"
+author: "Gonçalo Marques - Luxembourg Income Study"
+format: html
+editor: visual
+---
+
+## Description
+
+The function `lissyuse()` enables LISSY R-users to quickly import whole series of data from a specific country and/or within any time period.
+
+It also automatically merges, if needed, household level databases with individual level ones, based on the user-selected variables. To simplify this selection, `lissyuse()`automatically includes a set of technical variables: weights, id's, currency, year and dname.
+
+For quicker and more efficient jobs, we strongly advise the selection of a restrict group of variables in the argument `vars`*.*
+
+You can click on the following links for more information on [how to start with LISSY](https://www.lisdatacenter.org/data-access/lissy/), and on [METIS](https://www.lisdatacenter.org/frontend#/home) for detailed information on our available databases and their respective variables.
+
+## Usage
+
+```{r, eval = FALSE}
+lissyuse(
+  data = NULL, 
+  vars = NULL, 
+  from = NULL, 
+  to = NULL
+)  
+```
+
+## Arguments
+
++--------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `ccyy` | A character vector containing the databases to be loaded.                                                                                                                                                      |
+|        |                                                                                                                                                                                                                |
+|        | 1.  One can select the databases separately, using their *ccyy* format, e.g., `data = c("de16", "it20")`;                                                                                                      |
+|        |                                                                                                                                                                                                                |
+|        | 2.  To select and entire series from a given country, we recommend the use of the format *all_cc*, e.g., `data = c("all_us", "all_uk")`;                                                                       |
+|        |                                                                                                                                                                                                                |
+|        | 3.  These two formats can also be used simultaneously, e.g., `data = c("all_be", "all_es", "br21", "br20")`**.**                                                                                               |
++--------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `vars` | A character vector containing the databases to be loaded, e.g., `vars = c("dhi", "region_c", "age", "relation")`.                                                                                              |
+|        |                                                                                                                                                                                                                |
+|        | If nothing is selected the entire database will be loaded.                                                                                                                                                     |
++--------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `from` | A numeric value with the year (inclsive) after which it is desired to load LIS/LWS databases. If the argument `data`is not specified, `lissyuse()` will load all the databases irrespective of the countries.  |
++--------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `to`   | A numeric value with the year (inclsive) up to which it iis desired to load LIS/LWS databases. If the argument `data`is not specified, `lissyuse()` will load all the databases irrespective of the countries. |
++--------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+## Value
+
+A list named `lis_datasets` or `lws_datasets`. Each element of the list will be a tibble named after their respective database. See its the naming formats in the examples below. Each tibble will contain as many columns as the specified variables, plus the default technical variables.
+
+## Examples
+
+```{r, eval = FALSE}
+
+# A)
+
+# How to import a list of tibbles of merged household and individual level databases for all the italian datasets, plus de16 and us19.  
+lissyuse(data = c("all_it", "de16", "us19"), vars  = c("dhi", "region_c", "age", "hourstot"))
+
+# To check the names of the tibbles. 
+names(lis_datasets)
+
+# Ways of selecting certain elemennts 
+lis_datasets[["it14"]]   # By their name
+lis_datasets[1:3] # By their respective order within lis_datasets
+
+
+# B) 
+
+# How to select all the italian datasets, but at the same time restrict them to a certain year range. 
+lissyuse(data = c("all_it"), vars  = c("dhi", "region_c"), from = 2004, to = 2016)
+
+# Notice that in the previous line only household level files were selected. This will lead to slightly different names for the tibbles. 
+names(lis_datasets)
+
+# If the user only selects household level variables, lissyuse will not merge the individual level files for that country-year. 
+# The names of the tibbles will be ccyyih or cccyyip if only individual level variables were specified. 
+
+
+# C)
+
+# Example for LWS 
+lissyuse(data = c("all_us", "uk17", "uk19"), vars = "dnw", from = 2015, to = 2021)
+
+# When working with the LWS database, the list is named lws_datasets
+names(lws_datasets)
+
+# The naming format of the tibbles will keep being ccyy if the user selects household and individual level databases. If not, the format will be ccyywh or ccyywp. 
+
+```
