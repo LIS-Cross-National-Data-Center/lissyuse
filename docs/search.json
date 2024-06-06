@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "lissyuse_docs",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "lissyuse.html",
+    "href": "lissyuse.html",
+    "title": "Load data easily and efficiently with lissyuse",
+    "section": "",
+    "text": "The function lissyuse() enables LISSY R-users to quickly import whole series of data from a specific country and/or within any time period.\nIt also automatically merges, if needed, household level databases with individual level ones, based on the user-selected variables. To simplify this selection, lissyuse()automatically includes a set of technical variables: weights, id’s, currency, year and dname.\nFor quicker and more efficient jobs, we strongly advise the selection of a restrict group of variables in the argument vars.\nYou can click on the following links for more information on how to start with LISSY, and on METIS for detailed information on our available databases and their respective variables."
+  },
+  {
+    "objectID": "lissyuse.html#description",
+    "href": "lissyuse.html#description",
+    "title": "Load data easily and efficiently with lissyuse",
+    "section": "",
+    "text": "The function lissyuse() enables LISSY R-users to quickly import whole series of data from a specific country and/or within any time period.\nIt also automatically merges, if needed, household level databases with individual level ones, based on the user-selected variables. To simplify this selection, lissyuse()automatically includes a set of technical variables: weights, id’s, currency, year and dname.\nFor quicker and more efficient jobs, we strongly advise the selection of a restrict group of variables in the argument vars.\nYou can click on the following links for more information on how to start with LISSY, and on METIS for detailed information on our available databases and their respective variables."
+  },
+  {
+    "objectID": "lissyuse.html#usage",
+    "href": "lissyuse.html#usage",
+    "title": "Load data easily and efficiently with lissyuse",
+    "section": "Usage",
+    "text": "Usage\n\nlissyuse(\n  data = NULL, \n  vars = NULL, \n  from = NULL, \n  to = NULL\n)"
+  },
+  {
+    "objectID": "lissyuse.html#arguments",
+    "href": "lissyuse.html#arguments",
+    "title": "Load data easily and efficiently with lissyuse",
+    "section": "Arguments",
+    "text": "Arguments\n\n\n\n\n\n\n\nccyy\nA character vector containing the databases to be loaded.\n\nOne can select the databases separately, using their ccyy format, e.g., data = c(\"de16\", \"it20\");\nTo select and entire series from a given country, we recommend the use of the format all_cc, e.g., data = c(\"all_us\", \"all_uk\");\nThese two formats can also be used simultaneously, e.g., data = c(\"all_be\", \"all_es\", \"br21\", \"br20\").\n\n\n\nvars\nA character vector containing the databases to be loaded, e.g., vars = c(\"dhi\", \"region_c\", \"age\", \"relation\").\nIf nothing is selected the entire database will be loaded.\n\n\nfrom\nA numeric value with the year (inclsive) after which it is desired to load LIS/LWS databases. If the argument datais not specified, lissyuse() will load all the databases irrespective of the countries.\n\n\nto\nA numeric value with the year (inclsive) up to which it iis desired to load LIS/LWS databases. If the argument datais not specified, lissyuse() will load all the databases irrespective of the countries."
+  },
+  {
+    "objectID": "lissyuse.html#value",
+    "href": "lissyuse.html#value",
+    "title": "Load data easily and efficiently with lissyuse",
+    "section": "Value",
+    "text": "Value\nA list named lis_datasets or lws_datasets. Each element of the list will be a tibble named after their respective database. See its the naming formats in the examples below. Each tibble will contain as many columns as the specified variables, plus the default technical variables."
+  },
+  {
+    "objectID": "lissyuse.html#examples",
+    "href": "lissyuse.html#examples",
+    "title": "Load data easily and efficiently with lissyuse",
+    "section": "Examples",
+    "text": "Examples\n\n# A)\n\n# How to import a list of tibbles of merged household and individual level databases for all the italian datasets, plus de16 and us19.  \nlissyuse(data = c(\"all_it\", \"de16\", \"us19\"), vars  = c(\"dhi\", \"region_c\", \"age\", \"hourstot\"))\n\n# To check the names of the tibbles. \nnames(lis_datasets)\n\n# Ways of selecting certain elemennts \nlis_datasets[[\"it14\"]]   # By their name\nlis_datasets[1:3] # By their respective order within lis_datasets\n\n\n# B) \n\n# How to select all the italian datasets, but at the same time restrict them to a certain year range. \nlissyuse(data = c(\"all_it\"), vars  = c(\"dhi\", \"region_c\"), from = 2004, to = 2016)\n\n# Notice that in the previous line only household level files were selected. This will lead to slightly different names for the tibbles. \nnames(lis_datasets)\n\n# If the user only selects household level variables, lissyuse will not merge the individual level files for that country-year. \n# The names of the tibbles will be ccyyih or cccyyip if only individual level variables were specified. \n\n\n# C)\n\n# Example for LWS \nlissyuse(data = c(\"all_us\", \"uk17\", \"uk19\"), vars = \"dnw\", from = 2015, to = 2021)\n\n# When working with the LWS database, the list is named lws_datasets\nnames(lws_datasets)\n\n# The naming format of the tibbles will keep being ccyy if the user selects household and individual level databases. If not, the format will be ccyywh or ccyywp."
+  }
+]
