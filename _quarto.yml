@@ -6,7 +6,7 @@ website:
   title: "lissyuse"
   navbar:
     left:
-      - href: lissyuse.qmd
+      - href: about.qmd
         text: Home
 
 format:
