@@ -3,10 +3,10 @@ project:
   output-dir: docs
 
 website:
-  title: "lissyuse_docs"
+  title: "lissyuse"
   navbar:
     left:
-      - href: index.qmd
+      - href: lissyuse.qmd
         text: Home
 
 format:
